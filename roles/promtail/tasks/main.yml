@@ -43,7 +43,7 @@
 
 - name: check if binary exists
   ansible.builtin.stat:
-    path: /usr/bin/promtail-linux-amd64
+    path: /usr/local/bin/promtail-linux-amd64
   register: binary
 
 - name: check promtail version
@@ -56,7 +56,7 @@
   ansible.builtin.unarchive:
     src: "https://github.com/grafana/loki/releases/download/v\
          {{  promtail_version  }}/promtail-linux-amd64.zip"
-    dest: /usr/bin/
+    dest: /usr/local/bin/
     remote_src: true
   tags:
     - loki
@@ -66,7 +66,7 @@
   ansible.builtin.unarchive:
     src: "https://github.com/grafana/loki/releases/download/v\
          {{  promtail_version  }}/promtail-linux-amd64.zip"
-    dest: /usr/bin/
+    dest: /usr/local/bin/
     remote_src: true
   tags:
     - loki
@@ -100,7 +100,7 @@
 - name: template promtail config file
   ansible.builtin.template:
     src: templates/promtail.yml.j2
-    dest: /usr/local/bin/config-promtail.yml
+    dest: /etc/promtail/promtail.yml
     owner: root
     group: root
     mode: 0644
